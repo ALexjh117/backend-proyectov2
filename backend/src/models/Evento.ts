@@ -3,43 +3,42 @@ import { PlanificacionEvento } from './PlanificacionEvento';
 import { Actividad } from './Actividad';
 import { Notificaciones } from './Notificaciones';
 import { RelUsuarioEvento } from './RelUsuarioEvento';
-
-@Table({ tableName: 'Evento' })
+@Table({ tableName: 'Evento', timestamps: true }) // Habilitar timestamps
 export class Evento extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
-  IdEvento!: number;
+  declare IdEvento: number;
 
   @Column({ type: DataType.STRING(255), allowNull: false })
-  NombreEvento!: string;
+  declare NombreEvento: string;
 
   @Column({ type: DataType.DATEONLY, allowNull: false })
-  FechaInicio!: Date;
+  declare FechaInicio: Date;
 
   @Column({ type: DataType.DATEONLY, allowNull: false })
-  FechaFin!: Date;
+  declare FechaFin: Date;
 
   @Column({ type: DataType.TIME, allowNull: false })
-  HoraFin!: string;
+  declare HoraFin: string;
 
   @Column({ type: DataType.TIME, allowNull: false })
-  HoraInicio!: string;
+  declare HoraInicio: string;
 
   @Column({ type: DataType.STRING(255), allowNull: false })
-  UbicacionEvento!: string;
+  declare UbicacionEvento: string;
 
   @ForeignKey(() => PlanificacionEvento)
   @Column({ type: DataType.INTEGER, allowNull: true })
-  IdPlanificarE!: number;
+  declare IdPlanificarE: number;
 
   @Column({ type: DataType.TEXT, allowNull: true })
-  DescripcionEvento!: string;
+  declare DescripcionEvento: string;
 
   @HasMany(() => Actividad)
-  actividades!: Actividad[];
+  declare actividades: Actividad[];
 
   @HasMany(() => Notificaciones)
-  notificaciones!: Notificaciones[];
+  declare notificaciones: Notificaciones[];
 
   @HasMany(() => RelUsuarioEvento)
-  relUsuarioEventos!: RelUsuarioEvento[];
+  declare relUsuarioEventos: RelUsuarioEvento[];
 }

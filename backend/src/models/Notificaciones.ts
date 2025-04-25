@@ -1,22 +1,24 @@
 import { Table, Column, Model, DataType, ForeignKey } from 'sequelize-typescript';
 import { Evento } from './Evento';
 
-@Table({ tableName: 'Notificaciones' })
+@Table({
+  tableName: 'Notificaciones',
+  timestamps: true, 
+})
 export class Notificaciones extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
-  IdNotificacion!: number;
+  declare IdNotificacion: number;
 
   @Column({ type: DataType.TEXT, allowNull: false })
-  Mensaje!: string;
+  declare Mensaje: string;
 
   @Column({ type: DataType.ENUM("Evento", "Actividad", "Anuncio"), allowNull: false })
-  TiposNotificacion!: string;
+  declare TiposNotificacion: string;
 
   @Column({ type: DataType.DATEONLY, allowNull: false })
-  FechaDeEnvio!: Date;
+  declare FechaDeEnvio: Date;
 
   @ForeignKey(() => Evento)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  IdEvento!: number;
+  declare IdEvento: number;
 }
- 

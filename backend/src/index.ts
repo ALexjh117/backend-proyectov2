@@ -9,7 +9,7 @@ async function startServer() {
         await db.authenticate(); 
         console.log(colors.blue.bold('Conexión exitosa a la Base de datos'));
 
-        // Sincroniza la base de datos y crea las columnas 'createdAt' y 'updatedAt'
+      
         await db.sync({ alter: true }); 
         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
 

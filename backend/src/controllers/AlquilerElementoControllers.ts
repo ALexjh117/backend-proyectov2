@@ -31,7 +31,7 @@ export class AlquilerElementosControllers {
             }
             res.json(alquiler);
         } catch (error) {
-            res.status(500).json({ error: 'Hubo un error al obtener el alquiler' });
+            res.status(500).json({ error: 'Hubo un error al Obtener el Alquiler' });
         }
     };
 
@@ -42,7 +42,7 @@ export class AlquilerElementosControllers {
             res.status(201).json('Alquiler creado exitosamente');
         } catch (error) {
             console.error('Error al crear alquiler:', error);
-            res.status(500).json({ error: 'Hubo un error al crear el alquiler' });
+            res.status(500).json({ error: 'Hubo un error al crear el Alquiler' });
         }
     };
 
@@ -58,7 +58,7 @@ export class AlquilerElementosControllers {
             await alquiler.update(req.body);
             res.json('Alquiler actualizado correctamente');
         } catch (error) {
-            res.status(500).json({ error: 'Hubo un error al actualizar el alquiler' });
+            res.status(500).json({ error: 'Hubo un error al Actualizar el Alquiler' });
         }
     };
 
@@ -74,7 +74,7 @@ export class AlquilerElementosControllers {
             await alquiler.destroy();
             res.json('Alquiler eliminado correctamente');
         } catch (error) {
-            res.status(500).json({ error: 'Hubo un error al eliminar el alquiler' });
+            res.status(500).json({ error: 'Hubo un error al Eliminar el Alquiler' });
         }
     };
 }

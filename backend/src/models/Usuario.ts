@@ -10,47 +10,47 @@ import { RelUsuarioFeedback } from './RelUsuarioFeedback';
 @Table({ tableName: 'Usuario' })
 export class Usuario extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
-  IdUsuario!: number;
+  declare IdUsuario: number;
 
-  @Column({ type: DataType.STRING(50), allowNull: false, unique: true })
-  IdentificacionUsuario!: string;
-
-  @Column({ type: DataType.STRING(100), allowNull: false })
-  Nombre!: string;
+  @Column({ type: DataType.STRING(50), allowNull: false }) // <--- QUITADO unique: true
+  declare IdentificacionUsuario: string;
 
   @Column({ type: DataType.STRING(100), allowNull: false })
-  Apellido!: string;
+  declare Nombre: string;
 
-  @Column({ type: DataType.STRING(255), allowNull: false, unique: true })
-  Correo!: string;
+  @Column({ type: DataType.STRING(100), allowNull: false })
+  declare Apellido: string;
+
+  @Column({ type: DataType.STRING(255), allowNull: false }) // <--- QUITADO unique: true
+  declare Correo: string;
 
   @Column({ type: DataType.STRING(20), allowNull: true })
-  Telefono!: string;
+  declare Telefono: string;
 
   @Column({ type: DataType.STRING(255), allowNull: false })
-  Contrasena!: string;
+  declare Contrasena: string;
 
   @Column({ type: DataType.DATEONLY, allowNull: false })
-  FechaRegistro!: Date;
+  declare FechaRegistro: Date;
 
   @HasMany(() => RolUsuario)
-  rolUsuarios!: RolUsuario[];
+  declare rolUsuarios: RolUsuario[];
 
   @HasMany(() => AlquilerElementos)
-  alquilerElementos!: AlquilerElementos[];
+  declare alquilerElementos: AlquilerElementos[];
 
   @HasMany(() => Asistencia)
-  asistencias!: Asistencia[];
+  declare asistencias: Asistencia[];
 
   @HasMany(() => Constancia)
-  constancias!: Constancia[];
+  declare constancias: Constancia[];
 
   @HasMany(() => ConsultaIA)
-  consultasIA!: ConsultaIA[];
+  declare consultasIA: ConsultaIA[];
 
   @HasMany(() => RelUsuarioEvento)
-  relUsuarioEventos!: RelUsuarioEvento[];
+  declare relUsuarioEventos: RelUsuarioEvento[];
 
   @HasMany(() => RelUsuarioFeedback)
-  relUsuarioFeedbacks!: RelUsuarioFeedback[];
+  declare relUsuarioFeedbacks: RelUsuarioFeedback[];
 }

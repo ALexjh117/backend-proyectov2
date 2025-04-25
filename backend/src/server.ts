@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import { db } from './config/db';
 import ActividadRouter from './routes/ActividadRouter'
 import AlquilerElementosRouter from './routes/AlquilerElementosRouter';
+import AsistenciaRouter from './routes/AsistenciaRouter';
+import ConstanciaRouter from './routes/ConstanciaRouter';
 
 
 
@@ -14,7 +16,7 @@ async function connectDB() {
 
       
         try {
-            const [results, metadata] = await db.query('SELECT * FROM alquilerelementos ');
+            const [results, metadata] = await db.query('SELECT * FROM constancia ');
             console.log('Datos de ejemplo:', results);
         } catch (error) {
             console.error('Error al ejecutar la consulta:', error);
@@ -32,7 +34,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api/actividad', ActividadRouter);
 app.use('/api/alquilerelementos', AlquilerElementosRouter);
-
+app.use('/api/asistencia', AsistenciaRouter);
+app.use('/api/constancia', ConstanciaRouter);
 
 
 export default app;

@@ -1,5 +1,3 @@
-
-
 import { Table, Column, Model, DataType, ForeignKey } from 'sequelize-typescript';
 import { Usuario } from './Usuario';
 import { Actividad } from './Actividad';
@@ -7,25 +5,25 @@ import { Actividad } from './Actividad';
 @Table({ tableName: 'Asistencia' })
 export class Asistencia extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
-  AsiId!: number;
+  declare AsiId: number;
 
   @Column({ type: DataType.DATE, allowNull: false })
-  AsiFecha!: Date;
+  declare AsiFecha: Date;
 
   @Column({ type: DataType.INTEGER, allowNull: true })
-  AsiHorasAsistidas!: number;
+  declare AsiHorasAsistidas: number;
 
   @Column({ type: DataType.STRING(100), allowNull: false })
-  QREntrada!: string;
+  declare QREntrada: string;
 
   @Column({ type: DataType.STRING(100), allowNull: false })
-  QRSalida!: string;
+  declare QRSalida: string;
 
   @ForeignKey(() => Usuario)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  IdUsuario!: number;
+  declare IdUsuario: number;
 
   @ForeignKey(() => Actividad)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  IdActividad!: number;
+  declare IdActividad: number;
 }
