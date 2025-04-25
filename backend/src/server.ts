@@ -16,7 +16,7 @@ async function connectDB() {
 
       
         try {
-            const [results, metadata] = await db.query('SELECT * FROM constancia ');
+            const [results, metadata] = await db.query('SELECT * FROM consultaia ');
             console.log('Datos de ejemplo:', results);
         } catch (error) {
             console.error('Error al ejecutar la consulta:', error);
