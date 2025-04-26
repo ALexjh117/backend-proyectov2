@@ -10,7 +10,7 @@ async function startServer() {
         console.log(colors.blue.bold('Conexión exitosa a la Base de datos'));
 
       
-        await db.sync({ alter: true }); 
+        await db.sync()
         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
 
         server.listen(port, () => {
