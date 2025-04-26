@@ -1,20 +1,26 @@
 import server from './server';
 import colors from 'colors'; 
 import { db } from './config/db';
+import getPort from 'get-port';
 
-const port = process.env.PORT || 3000;
+const DEFAULT_PORT = 3000;
 
 async function startServer() {
     try {
+        // Intenta conectar a la base de datos
         await db.authenticate(); 
         console.log(colors.blue.bold('Conexión exitosa a la Base de datos'));
 
-      
-        await db.sync()
+        // Sincroniza la base de datos
+        await db.sync();
         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
 
-        server.listen(port, () => {
-            console.log(`✅ El servidor se está escuchando en el puerto http://localhost:${port}`);
+        // Busca un puerto libre automáticamente, comenzando desde el puerto 3000
+        const freePort = await getPort({ port: DEFAULT_PORT });  // Usamos get-port para obtener un puerto libre
+
+        // Inicia el servidor en el puerto libre encontrado
+        server.listen(freePort, () => {
+            console.log(`✅ El servidor se está escuchando en el puerto http://localhost:${freePort}`);
         });
 
     } catch (error) {
@@ -23,3 +29,34 @@ async function startServer() {
 }
 
 startServer();
+
+
+
+
+
+// import server from './server';
+// import colors from 'colors'; 
+// import { db } from './config/db';
+
+// const port = process.env.PORT || 3000;
+
+// async function startServer() {
+//     try {
+//         await db.authenticate(); 
+//         console.log(colors.blue.bold('Conexión exitosa a la Base de datos'));
+
+//         // Sincroniza la base de datos
+//         await db.sync()
+//         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
+
+//         // Inicia el servidor en el puerto especificado
+//         server.listen(port, () => {
+//             console.log(`✅ El servidor se está escuchando en el puerto http://localhost:${port}`);
+//         });
+
+//     } catch (error) {
+//         console.error('Error al conectar a la base de datos:', error);
+//     }
+// }
+
+// startServer();
