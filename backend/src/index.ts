@@ -60,3 +60,15 @@ startServer();
 // }
 
 // startServer();
+
+
+
+// base de datos y modelo:
+// await db.sync({ alter: true });
+// Le estás diciendo a Sequelize que revise todas las tablas y las modifique automáticamente para que coincidan con tus modelos. Esto es útil para desarrollo, pero:
+
+// Es pesado y puede tardar mucho si hay muchos modelos o datos.
+
+//  Lo hace cada vez que reinicias con Nodemon.
+
+// Y sí, fácilmente puede tardar 30 segundos o más en sincronizar.
