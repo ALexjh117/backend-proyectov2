@@ -18,7 +18,7 @@ export const validateIdActividad = async (req: Request, res: Response, next: Nex
   next();
 };
 
-// Valida si el nombre de la actividad ya existe
+
 export const validateIdActividadYaExiste = async (req: Request, res: Response, next: NextFunction) => {
   await body('NombreActi')
     .custom(async (value) => {
@@ -26,7 +26,7 @@ export const validateIdActividadYaExiste = async (req: Request, res: Response, n
         where: { NombreActi: value },
       });
       if (actividadExistente) {
-        throw new Error('Esta actividad ya está registrada');
+        throw new Error('Esta actividad Ya está registrada');
       }
       return true;
     })

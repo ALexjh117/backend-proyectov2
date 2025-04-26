@@ -16,7 +16,7 @@ async function connectDB() {
 
       
         try {
-            const [results, metadata] = await db.query('SELECT * FROM consultaia ');
+            const [results, metadata] = await db.query('SELECT * FROM consultaia LIMIT 5');
             console.log('Datos de ejemplo:', results);
         } catch (error) {
             console.error('Error al ejecutar la consulta:', error);

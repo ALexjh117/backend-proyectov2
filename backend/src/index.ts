@@ -14,7 +14,7 @@ async function startServer() {
         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
 
         server.listen(port, () => {
-            console.log(`✅ El servidor se está escuchando en el puerto ${port}`);
+            console.log(`✅ El servidor se está escuchando en el puerto http://localhost:${port}`);
         });
 
     } catch (error) {
