@@ -3,34 +3,34 @@ import { Request, Response } from "express";
 import { ConsultaIA } from "../models/ConsultaIA";
 
 export class ConsultaIAControllers {
-    // Obtener todas las constancias ordenadas por `ConstanciaFecha`
+ 
     static getConsultaIAAll = async (req: Request, res: Response) => {
         try {
             console.log('Desde GET /api/ConsultaIA');
             
             const consulta = await ConsultaIA.findAll({
                 order: [
-                    ['Fecha', 'ASC'], // Ordenar por la fecha de la constancia
+                    ['Fecha', 'ASC'], 
                 ],
             });
 
-            res.json(consulta); // Solo enviamos la respuesta sin usar `return`
+            res.json(consulta); 
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Hubo un error al obtener la consulta' });
         }
     };
 
-    // Obtener constancia por ID
+    // Obtener consulta por ID
     static getIdConsultaIA = async (req: Request, res: Response) => {
         try {
-            const { IdConsultaIA } = req.params; // Desestructuramos el ConstanciaId de los parámetros
+            const { IdConsultaIA } = req.params; 
             const consulta = await ConsultaIA.findByPk(IdConsultaIA);
             if (!consulta) {
                 res.status(404).json({ error: 'Consulta no encontrada' });
-                return; // Terminamos la ejecución después de enviar la respuesta
+                return; 
             }
-            res.json(consulta); // Solo enviamos la respuesta sin usar `return`
+            res.json(consulta); 
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Hubo un error al obtener la consulta' });
@@ -49,7 +49,7 @@ export class ConsultaIAControllers {
         }
 
 
-    // Crear nueva constancia
+    // Crear nueva consulta
     static actualizarIdconsultaIa =async (req:Request , res:Response) =>{
                 try{
                     const {IdConsultaIA} =req.params
