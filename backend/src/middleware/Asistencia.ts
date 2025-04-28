@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { param, validationResult, body } from 'express-validator';
-import { Asistencia } from "../models/Asistencia"; // Asegúrate de tener el modelo adecuado
-
+import { Asistencia } from "../models/Asistencia"; 
 // Valida el ID de la asistencia
 export const validateIdAsistencia = async (req: Request, res: Response, next: NextFunction) => {
   await param('AsiId')
