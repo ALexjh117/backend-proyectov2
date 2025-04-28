@@ -6,6 +6,7 @@ import ActividadRouter from './routes/ActividadRouter'
 import AlquilerElementosRouter from './routes/AlquilerElementosRouter';
 import AsistenciaRouter from './routes/AsistenciaRouter';
 import ConstanciaRouter from './routes/ConstanciaRouter';
+import ConsultaIARouter  from './routes/ConsultaIARouter';
 
 
 
@@ -36,6 +37,7 @@ app.use('/api/actividad', ActividadRouter);
 app.use('/api/alquilerelementos', AlquilerElementosRouter);
 app.use('/api/asistencia', AsistenciaRouter);
 app.use('/api/constancia', ConstanciaRouter);
+app.use('/api/consultaia', ConsultaIARouter);
 
 
 export default app;

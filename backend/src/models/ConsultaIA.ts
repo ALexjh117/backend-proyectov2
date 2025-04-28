@@ -4,21 +4,21 @@ import { Usuario } from './Usuario';
 @Table({ tableName: 'consultaia' })
 export class ConsultaIA extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
-  IdConsultaIA!: number;
+  declare IdConsultaIA: number;
 
   @Column({ type: DataType.TEXT, allowNull: false })
-  Pregunta!: string;
+  declare Pregunta: string;
 
   @Column({ type: DataType.TEXT, allowNull: false })
-  Respuesta!: string;
+  declare Respuesta: string;
 
   @Column({ type: DataType.DATEONLY, allowNull: false })
-  Fecha!: Date;
+  declare Fecha: Date;
 
   @Column({ type: DataType.TEXT, allowNull: true })
-  Descripcion!: string;
+  declare Descripcion: string;
 
   @ForeignKey(() => Usuario)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  IdUsuario!: number;
+  declare IdUsuario: number;
 }
