@@ -7,7 +7,7 @@ import AlquilerElementosRouter from './routes/AlquilerElementosRouter';
 import AsistenciaRouter from './routes/AsistenciaRouter';
 import ConstanciaRouter from './routes/ConstanciaRouter';
 import ConsultaIARouter  from './routes/ConsultaIARouter';
-
+import EventoRouter  from './routes/EventoRouter';
 
 
 async function connectDB() {
@@ -17,7 +17,7 @@ async function connectDB() {
 
       
         try {
-            const [results, metadata] = await db.query('SELECT * FROM consultaia LIMIT 5');
+            const [results, metadata] = await db.query('SELECT * FROM evento LIMIT 5');
             console.log('Datos de ejemplo:', results);
         } catch (error) {
             console.error('Error al ejecutar la consulta:', error);
@@ -38,6 +38,7 @@ app.use('/api/alquilerelementos', AlquilerElementosRouter);
 app.use('/api/asistencia', AsistenciaRouter);
 app.use('/api/constancia', ConstanciaRouter);
 app.use('/api/consultaia', ConsultaIARouter);
+app.use('/api/evento', EventoRouter);
 
 
 export default app;
