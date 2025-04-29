@@ -12,7 +12,7 @@ export class Usuario extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
   declare IdUsuario: number;
 
-  @Column({ type: DataType.STRING(50), allowNull: false }) // <--- QUITADO unique: true
+  @Column({ type: DataType.STRING(50), allowNull: false }) 
   declare IdentificacionUsuario: string;
 
   @Column({ type: DataType.STRING(100), allowNull: false })
@@ -21,7 +21,7 @@ export class Usuario extends Model {
   @Column({ type: DataType.STRING(100), allowNull: false })
   declare Apellido: string;
 
-  @Column({ type: DataType.STRING(255), allowNull: false }) // <--- QUITADO unique: true
+  @Column({ type: DataType.STRING(255), allowNull: false }) 
   declare Correo: string;
 
   @Column({ type: DataType.STRING(20), allowNull: true })

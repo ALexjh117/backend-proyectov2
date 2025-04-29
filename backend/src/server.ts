@@ -8,8 +8,10 @@ import AsistenciaRouter from './routes/AsistenciaRouter';
 import ConstanciaRouter from './routes/ConstanciaRouter';
 import ConsultaIARouter  from './routes/ConsultaIARouter';
 import EventoRouter  from './routes/EventoRouter';
-
-
+import GestionEventoRouter  from './routes/GestionEventoRouter';
+import  RelUsuarioFeedbackRouter  from './routes/RelUsuarioFeedbackRouter';
+import  RolUsuarioRouter  from './routes/RolUsuarioRouter';
+import  UsuarioRouter  from './routes/UsuarioRouter';
 async function connectDB() {
     try {
         await db.authenticate(); 
@@ -39,6 +41,8 @@ app.use('/api/asistencia', AsistenciaRouter);
 app.use('/api/constancia', ConstanciaRouter);
 app.use('/api/consultaia', ConsultaIARouter);
 app.use('/api/evento', EventoRouter);
-
-
+app.use('/api/gestionevento', GestionEventoRouter);
+app.use('/api/relusuariofeedback', RelUsuarioFeedbackRouter);
+app.use('/api/rolusuario', RolUsuarioRouter)
+app.use("/api/usuario", UsuarioRouter)
 export default app;
