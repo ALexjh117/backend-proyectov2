@@ -15,6 +15,7 @@ import  UsuarioRouter  from './routes/UsuarioRouter';
 import  FeedbackRouter  from './routes/FeedbackRouter';
 import  NotificacionesRouter  from './routes/NotificacionesRouter';
 import  PlanificacionEventoRouter  from './routes/PlanificacionEventoRouter';
+import  RelUsuarioEventoRouter from './routes/RelUsuarioEventoRouter';
 async function connectDB() {
     try {
         await db.authenticate(); 
@@ -22,7 +23,7 @@ async function connectDB() {
 
       
         try {
-            const [results, metadata] = await db.query('SELECT * FROM planificacionevento');
+            const [results, metadata] = await db.query('SELECT * FROM relusuarioevento');
             console.log('Datos de ejemplo:', results);
         } catch (error) {
             console.error('Error al ejecutar la consulta:', error);
@@ -51,4 +52,5 @@ app.use("/api/usuario", UsuarioRouter)
 app.use("/api/feedback", FeedbackRouter)
 app.use("/api/notificaciones", NotificacionesRouter)
 app.use("/api/planificacionevento", PlanificacionEventoRouter)
+app.use("/api/relusuarioevento", RelUsuarioEventoRouter)
 export default app;
