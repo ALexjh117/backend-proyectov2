@@ -4,21 +4,21 @@ import { GestionEvento } from './GestionEvento';
 @Table({ tableName: 'planificacionevento' })
 export class PlanificacionEvento extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
-  IdPlanificarE!: number;
+  declare IdPlanificarE: number;
 
   @Column({ type: DataType.STRING(150), allowNull: false })
-  NombreEvento!: string;
+  declare NombreEvento: string;
 
   @Column({ type: DataType.DATE, allowNull: false })
-  FechaEvento!: Date;
+  declare FechaEvento: Date;
 
   @Column({ type: DataType.STRING(50), allowNull: false })
-  LugarDeEvento!: string;
+  declare LugarDeEvento: string;
 
   @Column({ type: DataType.TEXT, allowNull: true })
-  Recursos!: string;
+  declare Recursos: string;
 
   @ForeignKey(() => GestionEvento)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  IdGestionE!: number;
+  declare IdGestionE: number;
 }
