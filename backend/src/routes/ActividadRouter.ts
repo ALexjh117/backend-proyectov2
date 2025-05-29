@@ -33,7 +33,12 @@ router.put(
   handleInputErrors,
   ActividadControllers.actualizarIdActividad
 );
-
+router.get(
+  '/evento/:IdEvento',
+  param('IdEvento').isInt().withMessage('IdEvento debe ser un número entero'),
+  handleInputErrors,
+  ActividadControllers.getActividadesPorEvento
+);
 // Eliminar una actividad por ID
 router.delete(
   '/:IdActividad',

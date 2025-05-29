@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, ForeignKey, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, HasMany, BelongsTo } from 'sequelize-typescript';
 import { Evento } from './Evento';
 import { Asistencia } from './Asistencia';
 
@@ -34,6 +34,9 @@ export class Actividad extends Model {
   @ForeignKey(() => Evento)
   @Column({ type: DataType.INTEGER, allowNull: false })
   declare IdEvento: number;
+
+  @BelongsTo(() => Evento)
+  declare evento: Evento;
 
   @HasMany(() => Asistencia)
   declare asistencias: Asistencia[];
