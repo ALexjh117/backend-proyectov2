@@ -16,6 +16,8 @@ import  FeedbackRouter  from './routes/FeedbackRouter';
 import  NotificacionesRouter  from './routes/NotificacionesRouter';
 import  PlanificacionEventoRouter  from './routes/PlanificacionEventoRouter';
 import  RelUsuarioEventoRouter from './routes/RelUsuarioEventoRouter';
+import SolicitudApoyoRouter from './routes/SolicitudApoyoRouter';
+
 async function connectDB() {
     try {
         await db.authenticate(); 
@@ -53,4 +55,5 @@ app.use("/api/feedback", FeedbackRouter)
 app.use("/api/notificaciones", NotificacionesRouter)
 app.use("/api/planificacionevento", PlanificacionEventoRouter)
 app.use("/api/relusuarioevento", RelUsuarioEventoRouter)
+app.use("/api/solicitudapoyo", SolicitudApoyoRouter);
 export default app;
