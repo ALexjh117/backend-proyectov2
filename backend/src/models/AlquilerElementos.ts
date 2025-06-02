@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Usuario } from './Usuario';
 
 @Table({ 
@@ -27,4 +27,7 @@ export class AlquilerElementos extends Model {
   @ForeignKey(() => Usuario)
   @Column({ type: DataType.INTEGER, allowNull: true })
   declare IdUsuario: number;
+
+  @BelongsTo(() => Usuario)
+  declare usuario: Usuario;  // Esta bloque linea como lo quieran llamar  zozorras es la que define la relación con Usuario
 }

@@ -1,80 +1,90 @@
-import type{ Request, Response } from "express";
+import type { Request, Response } from "express";
 import { AlquilerElementos } from "../models/AlquilerElementos";
+import { Usuario } from "../models/Usuario";
 
 export class AlquilerElementosControllers {
-    static getAlquilerElementosAll = async (req: Request, res: Response) => {
-        try {
-            console.log('Desde GET /api/AlquilerElementos');
-            
-            // Obtener todas las actividades ordenadas por `createdAt`
-            const alquiler = await AlquilerElementos.findAll({
-                order: [
-                    ['createdAt', 'ASC'], // Ordenar por la fecha de creación
-                ],
-            });
+  
+  static getAlquilerElementosAll = async (req: Request, res: Response) => {
+    try {
+      const alquiler = await AlquilerElementos.findAll({
+        order: [['createdAt', 'ASC']],
+        include: [Usuario],  // Trae datos del usuario que hizo el alquiler
+      });
+      res.json(alquiler);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Hubo un error' });
+    }
+  };
 
-            res.json(alquiler); // Responder con el resultado de las actividades
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Hubo un error' });
-        }
-    };
+  static getIdAlquiler = async (req: Request, res: Response) => {
+    try {
+      const { IdAlquiler } = req.params;
+      const alquiler = await AlquilerElementos.findByPk(IdAlquiler, {
+        include: [Usuario],  // Trae datos del usuario
+      });
+      if (!alquiler) {
+         res.status(404).json({ error: 'Alquiler no encontrado' });
+         return;
+      }
+      res.json(alquiler);
+    } catch (error) {
+      res.status(500).json({ error: 'Hubo un error al obtener el alquiler' });
+    }
+  };
 
-    static getIdAlquiler = async (req: Request, res: Response) => {
-        try {
-            const { IdAlquiler } = req.params;
-            const alquiler = await AlquilerElementos.findByPk(IdAlquiler);
-            if (!alquiler) {
-                const error = new Error('Alquiler no encontrado');
-                res.status(404).json({ error: error.message });
-                return;
-            }
-            res.json(alquiler);
-        } catch (error) {
-            res.status(500).json({ error: 'Hubo un error al Obtener el Alquiler' });
-        }
-    };
+  static crearAlquiler = async (req: Request, res: Response) => {
+    try {
+      const alquiler = new AlquilerElementos(req.body);
+      await alquiler.save();
+      res.status(201).json('Alquiler creado exitosamente');
+    } catch (error) {
+      console.error('Error al crear alquiler:', error);
+      res.status(500).json({ error: 'Hubo un error al crear el Alquiler' });
+    }
+  };
 
-    static crearAlquiler = async (req: Request, res: Response) => {
-        try {
-            const alquiler = new AlquilerElementos(req.body);
-            await alquiler.save();
-            res.status(201).json('Alquiler creado exitosamente');
-        } catch (error) {
-            console.error('Error al crear alquiler:', error);
-            res.status(500).json({ error: 'Hubo un error al crear el Alquiler' });
-        }
-    };
+  static actualizarIdAlquiler = async (req: Request, res: Response) => {
+    try {
+      const { IdAlquiler } = req.params;
+      const alquiler = await AlquilerElementos.findByPk(IdAlquiler);
+      if (!alquiler) {
+        res.status(404).json({ error: 'Alquiler no encontrado' });
+        return;
+      }
+      await alquiler.update(req.body);
+      res.json('Alquiler actualizado correctamente');
+    } catch (error) {
+      res.status(500).json({ error: 'Hubo un error al Actualizar el Alquiler' });
+    }
+  };
 
-    static actualizarIdAlquiler = async (req: Request, res: Response) => {
-        try {
-            const { IdAlquiler } = req.params;
-            const alquiler = await AlquilerElementos.findByPk(IdAlquiler);
-            if (!alquiler) {
-                const error = new Error('Alquiler no encontrado');
-                 res.status(404).json({ error: error.message });
-                 return;
-            }
-            await alquiler.update(req.body);
-            res.json('Alquiler actualizado correctamente');
-        } catch (error) {
-            res.status(500).json({ error: 'Hubo un error al Actualizar el Alquiler' });
-        }
-    };
+  static eliminarIdAlquiler = async (req: Request, res: Response) => {
+    try {
+      const { IdAlquiler } = req.params;
+      const alquiler = await AlquilerElementos.findByPk(IdAlquiler);
+      if (!alquiler) {
+       res.status(404).json({ error: 'Alquiler no encontrado' });
+       return;
+      }
+      await alquiler.destroy();
+      res.json('Alquiler eliminado correctamente');
+    } catch (error) {
+      res.status(500).json({ error: 'Hubo un error al Eliminar el Alquiler' });
+    }
+  };
 
-    static eliminarIdAlquiler = async (req: Request, res: Response) => {
-        try {
-            const { IdAlquiler } = req.params;
-            const alquiler = await AlquilerElementos.findByPk(IdAlquiler);
-            if (!alquiler) {
-                const error = new Error('Alquiler no encontrado');
-                res.status(404).json({ error: error.message });
-                return;
-            }
-            await alquiler.destroy();
-            res.json('Alquiler eliminado correctamente');
-        } catch (error) {
-            res.status(500).json({ error: 'Hubo un error al Eliminar el Alquiler' });
-        }
-    };
+  // Nuevo método: obtener alquileres filtrados por IdUsuario prestaran atencion zungas
+  static getAlquileresPorUsuario = async (req: Request, res: Response) => {
+    try {
+      const { IdUsuario } = req.params;
+      const alquileres = await AlquilerElementos.findAll({
+        where: { IdUsuario },
+        include: [Usuario],  // Trae datos del usuario
+      });
+      res.json(alquileres);
+    } catch (error) {
+      res.status(500).json({ error: 'Error al obtener alquileres por usuario' });
+    }
+  };
 }

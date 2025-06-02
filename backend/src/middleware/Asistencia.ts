@@ -63,12 +63,12 @@ export const validateAsistenciaBody = async (req: Request, res: Response, next: 
     .run(req);
 
   await body('IdUsuario')
-    .notEmpty().withMessage('El campo "ID de Usuario" no puede estar vacío')
+    .notEmpty().withMessage('no se puede registrar una asistencia si no esta asosciada a un idUsuario')
     .isInt().withMessage('El campo "ID de Usuario" debe ser un número entero')
     .run(req);
 
   await body('IdActividad')
-    .notEmpty().withMessage('El campo "ID de Actividad" no puede estar vacío')
+    .notEmpty().withMessage('no se puede agregar la asistencia si no esta referenciada a dicha actividad')
     .isInt().withMessage('El campo "ID de Actividad" debe ser un número entero')
     .run(req);
 

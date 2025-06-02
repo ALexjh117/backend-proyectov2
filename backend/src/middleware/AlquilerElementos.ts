@@ -17,6 +17,22 @@ export const validateIdAlquiler = async (req: Request, res: Response, next: Next
 
   next();
 };
+// Valida el parámetro IdUsuario en la ruta
+export const validateIdUsuario = async (req: Request, res: Response, next: NextFunction) => {
+  await param('IdUsuario')
+    .isInt().withMessage('IdUsuario debe ser un número entero')
+    .custom(value => value > 0).withMessage('IdUsuario debe ser mayor que 0')
+    .run(req);
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+    return;
+  }
+
+  next();
+};
+
 
 // Valida si el nombre del elemento de alquiler ya existe
 export const validateIdAlquilerYaExiste = async (req: Request, res: Response, next: NextFunction) => {

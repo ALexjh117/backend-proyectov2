@@ -4,10 +4,15 @@ import { RelUsuarioFeedback } from "../models/RelUsuarioFeedback";
 export class RelusuarioFeedbackController {
     static getAll = async (req: Request, res: Response) => {
         try {
-            const relaciones = await RelUsuarioFeedback.findAll();
+            const relaciones = await RelUsuarioFeedback.findAll({
+                  order: [
+                    ['IdUsuario', 'ASC'], // Ordenar por el campo id
+                ],
+            });
+            
             res.json(relaciones);
         } catch (error) {
-            //console.error(error);
+            console.error(error);
             res.status(500).json({ error: 'hubo un error' });
         }
     };
@@ -38,6 +43,7 @@ export class RelusuarioFeedbackController {
             const { IdUsuario, IdFeedback, FechaRelUsuaFeed } = req.body;
             const nuevaRelacion = await RelUsuarioFeedback.create({ IdUsuario, IdFeedback, FechaRelUsuaFeed });
             res.status(201).json(nuevaRelacion);
+         
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'ocurrio un error' });

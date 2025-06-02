@@ -9,7 +9,7 @@ export class RelUsuarioEventoControllers {
             
             const relUsuarioEvento = await RelUsuarioEvento.findAll({
                 order: [
-                    ['id', 'ASC'], // Ordenar por el campo id
+                    ['Idusuario', 'ASC'], // Ordenar por el campo id
                 ],
             });
 
@@ -22,8 +22,8 @@ export class RelUsuarioEventoControllers {
 
     static getIdRelUsuarioEvento = async (req: Request, res: Response) => {
         try {
-            const { id } = req.params; 
-            const relUsuarioEvento = await RelUsuarioEvento.findByPk(id);
+            const { IdUsuario } = req.params; 
+            const relUsuarioEvento = await RelUsuarioEvento.findByPk(IdUsuario);
 
             if (!relUsuarioEvento) {
                 const error = new Error('Relación no encontrada');
@@ -50,8 +50,8 @@ export class RelUsuarioEventoControllers {
 
     static actualizarIdRelUsuarioEvento = async (req: Request, res: Response) => {
         try {
-            const { id } = req.params; 
-            const relUsuarioEvento = await RelUsuarioEvento.findByPk(id);
+            const { IdUsuario } = req.params; 
+            const relUsuarioEvento = await RelUsuarioEvento.findByPk(IdUsuario);
 
             if (!relUsuarioEvento) {
                 const error = new Error('Relación no encontrada');
@@ -68,8 +68,8 @@ export class RelUsuarioEventoControllers {
 
     static eliminarIdRelUsuarioEvento = async (req: Request, res: Response) => {
         try {
-            const { id } = req.params;
-            const relUsuarioEvento = await RelUsuarioEvento.findByPk(id);
+            const { Idusuario } = req.params;
+            const relUsuarioEvento = await RelUsuarioEvento.findByPk(Idusuario);
 
             if (!relUsuarioEvento) {
                 const error = new Error('Relación no encontrada');

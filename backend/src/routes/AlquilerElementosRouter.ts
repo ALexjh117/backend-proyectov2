@@ -1,34 +1,37 @@
 import { Router } from 'express';
-import { body,param } from 'express-validator';
-import {handleInputErrors} from '../middleware/validation'
-import {validateAlquilerBody,validateIdAlquiler, validateIdAlquilerYaExiste,} from '../middleware/AlquilerElementos';
+import { body, param } from 'express-validator';
+import { handleInputErrors } from '../middleware/validation';
+import {
+  validateAlquilerBody,
+  validateIdAlquiler,
+  validateIdAlquilerYaExiste,
+   validateIdUsuario
+} from '../middleware/AlquilerElementos';
 import { AlquilerElementosControllers } from '../controllers/AlquilerElementoControllers';
-
-
-
 
 const router = Router();
 
-// Obtener todas las actividades
+// Obtener todos los alquileres
 router.get('/', AlquilerElementosControllers.getAlquilerElementosAll);
 
-// Obtener una actividad por ID
-router.get('/:IdAlquiler',
+// Obtener un alquiler por ID
+router.get(
+  '/:IdAlquiler',
   validateIdAlquiler,
   handleInputErrors,
   AlquilerElementosControllers.getIdAlquiler
 );
 
-// Crear una actividad (nombre único)
+// Crear un alquiler
 router.post(
-'/',
+  '/',
   validateIdAlquilerYaExiste,
   validateAlquilerBody,
   handleInputErrors,
   AlquilerElementosControllers.crearAlquiler
 );
 
-// Actualizar una actividad por ID (no se valida si el nombre ya existe)
+// Actualizar un alquiler por ID
 router.put(
   '/:IdAlquiler',
   validateIdAlquiler,
@@ -37,12 +40,19 @@ router.put(
   AlquilerElementosControllers.actualizarIdAlquiler
 );
 
-// Eliminar una actividad por ID
+// Eliminar un alquiler por ID
 router.delete(
   '/:IdAlquiler',
   validateIdAlquiler,
   handleInputErrors,
   AlquilerElementosControllers.eliminarIdAlquiler
+);
+// nueva ruta zozorrass
+router.get(
+  '/usuario/:IdUsuario',
+  validateIdUsuario,
+  handleInputErrors,
+  AlquilerElementosControllers.getAlquileresPorUsuario
 );
 
 export default router;
