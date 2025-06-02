@@ -4,7 +4,7 @@ import { RelUsuarioEvento } from "../models/RelUsuarioEvento";
 
 
 export const validateIdRelUsuarioEvento = async (req: Request, res: Response, next: NextFunction) => {
-  await param('id')
+  await param('IdUsuario')
     .isInt({ min: 1 }).withMessage('ID no válido')
     .run(req);
 

@@ -9,10 +9,10 @@ import { Evento } from './Evento';
 export class RelUsuarioEvento extends Model<RelUsuarioEvento> {
   
   @ForeignKey(() => Usuario)
-  @Column({ type: DataType.INTEGER, allowNull: false, primaryKey: true })
+  @Column({ type: DataType.INTEGER, allowNull: false, primaryKey:true })
   declare IdUsuario: number;
 
   @ForeignKey(() => Evento)
-  @Column({ type: DataType.INTEGER, allowNull: false, primaryKey: true })
+  @Column({ type: DataType.INTEGER, allowNull: false, primaryKey:true })
   declare IdEvento: number;
 }

@@ -10,7 +10,7 @@ router.get('/', RelUsuarioEventoControllers.getRelUsuarioEventoAll);
 
 
 router.get(
-  '/:id',
+  '/:IdUsuario',
   validateIdRelUsuarioEvento,
   handleInputErrors,
   RelUsuarioEventoControllers.getIdRelUsuarioEvento

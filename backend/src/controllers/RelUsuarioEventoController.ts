@@ -27,6 +27,7 @@ export class RelUsuarioEventoControllers {
 
             if (!relUsuarioEvento) {
                 const error = new Error('Relación no encontrada');
+                console.log(error)
                 res.status(404).json({ error: error.message });
                 return;
             }
