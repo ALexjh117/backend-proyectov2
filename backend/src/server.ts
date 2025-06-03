@@ -17,6 +17,7 @@ import  NotificacionesRouter  from './routes/NotificacionesRouter';
 import  PlanificacionEventoRouter  from './routes/PlanificacionEventoRouter';
 import  RelUsuarioEventoRouter from './routes/RelUsuarioEventoRouter';
 import SolicitudApoyoRouter from './routes/SolicitudApoyoRouter';
+import HistorialSolicitudRouter from './routes/HistorialSolicitudRouter';
 
 async function connectDB() {
     try {
@@ -56,4 +57,5 @@ app.use("/api/notificaciones", NotificacionesRouter)
 app.use("/api/planificacionevento", PlanificacionEventoRouter)
 app.use("/api/relusuarioevento", RelUsuarioEventoRouter)
 app.use("/api/solicitudapoyo", SolicitudApoyoRouter);
+app.use("/api/historialsolicitud", HistorialSolicitudRouter)
 export default app;
