@@ -40,9 +40,8 @@ export class Usuario extends Model {
   @Column({ type: DataType.DATEONLY })
   declare FechaRegistro: Date;
 
-  @Column({ type: DataType. STRING(6)
-})
-  declare token: string;
+  @Column({ type: DataType. STRING(6),allowNull:true})
+  declare token: string | null;
 
 @Default(false)
   @Column({ type: DataType.BOOLEAN

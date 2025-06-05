@@ -86,7 +86,7 @@ export class UsuarioController {
          await AuthEmail.sendConfirmationEmail({
             Nombre: usuario.Nombre,
             Correo: usuario.Correo,
-            token: usuario.token
+            token: usuario.token ??''
         });
         console.log("Finalizo envio de correo")
 
@@ -175,5 +175,53 @@ export class UsuarioController {
         res.json(token)
         
     }
-}
 
+
+    static forgotContrasena = async(req:Request, res:Response)=>{
+         const {Correo } =req.body
+        // Revisar que el usuario exista
+        const usuario= await Usuario.findOne({where:{Correo}})
+        if(!usuario){
+            const error= new Error('Usuario no encontrado')
+            res.status(409).json({error:error.message})
+            return;
+        }
+        usuario.token =generateToken()
+        await usuario.save()
+        await AuthEmail.sendContrasenaResetToken({
+            Nombre:usuario.Nombre,
+            Correo: usuario.Correo,
+            token:usuario.token
+        })
+        res.json('Revisa tu correo para instrucciones')
+    }
+
+    static validateToken = async(req:Request, res:Response)=>{
+        const {token} =req.body
+       const tokenExists = await Usuario.findOne({where:{token}})
+       if(!tokenExists){
+        const error = new Error('Token no valido')
+        res.status(404).json({error:error.message})
+        return;
+       }
+       res.json('Token  valido...')
+
+}
+ static resetpasswordWithToken = async(req:Request, res:Response)=>{
+        const{token} =req.params
+        const{Contrasena}=req.body
+
+     const usuario = await Usuario.findOne({where:{token}})
+       if(!usuario){
+        const error = new Error('Token no valido')
+        res.status(404).json({error:error.message})
+        return;
+       }
+     //Asignar la nueva contraseña
+     usuario.Contrasena =await hashPassword(Contrasena)
+     usuario.token =null
+     await usuario.save()
+
+        res.json('La contraseña se modifico correctamente')
+}
+}
