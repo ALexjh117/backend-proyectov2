@@ -1,10 +1,11 @@
 import type { Request, Response } from "express";
 import {  Usuario } from "../models/Usuario";
-import { hashPassword } from "../utils/auth";
+import { checkcontrasena, hashPassword } from "../utils/auth";
 import { generateToken } from "../utils/token";
 import { AuthEmail } from "../emails/AuthEmail";
 import { where } from "sequelize";
 import { ERROR } from "sqlite3";
+import { generateJWT } from "../utils/jwt";
 
 
 //gestion de ingreso del usuario 
@@ -149,7 +150,30 @@ export class UsuarioController {
         res.json("Cuenta confirmada correctamente")
 
     }
-
+    
+    static login = async (req:Request, res:Response)=>{
+        const {Correo, Contrasena} =req.body
+        // Revisar que el usuario exista
+        const usuario= await Usuario.findOne({where:{Correo}})
+        if(!usuario){
+            const error= new Error('Usuario no encontrado')
+            res.status(409).json({error:error.message})
+            return;
+        }
+        if(!usuario.confirmed){
+              const error= new Error('La cuenta no ha sido confirmada')
+            res.status(403).json({error:error.message})
+            return;
+        }
+        const isContrasenaCorrecta= await checkcontrasena(Contrasena,usuario.Contrasena)
+         if(!isContrasenaCorrecta){
+              const error= new Error('Contraseña incorrecta')
+            res.status(401).json({error:error.message})
+            return;
+        }
+      const token  = generateJWT(usuario.IdUsuario)
+        res.json(token)
+        
+    }
 }
-
 

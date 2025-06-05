@@ -5,3 +5,6 @@ export const hashPassword = async (contrasena:string) =>{
     return await bcrypt.hash(contrasena,salt)
 
 }
+export const checkcontrasena =async (Contrasena:string, hash:string)=>{
+  return await bcrypt.compare(Contrasena,hash)
+}
