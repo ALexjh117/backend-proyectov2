@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { Feedback } from "../models/Feedback";
-
+//usuarips que han cmentado el feddback del evento x , ya sea por id o por nombre
 export class FeedbackController {
 
     static getAllFeedbacks = async (req: Request, res: Response) => {

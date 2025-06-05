@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { RelUsuarioFeedback } from "../models/RelUsuarioFeedback";
-
+//  relacion de usuario por feedback ya sea de un evento  de un actividad , tambien incluir lo que es las solicitudes de quien lo atendio , ya sea con un id
 export class RelusuarioFeedbackController {
     static getAll = async (req: Request, res: Response) => {
         try {

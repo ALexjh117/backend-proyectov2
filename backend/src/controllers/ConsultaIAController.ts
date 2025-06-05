@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { ConsultaIA } from "../models/ConsultaIA";
 
 export class ConsultaIAControllers {
- 
+ //consultas que ha echo el usuario//
     static getConsultaIAAll = async (req: Request, res: Response) => {
         try {
             console.log('Desde GET /api/ConsultaIA');

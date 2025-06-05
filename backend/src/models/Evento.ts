@@ -33,7 +33,10 @@ export class Evento extends Model {
   @Column({ type: DataType.TEXT, allowNull: true })
   declare DescripcionEvento: string;
 
-  @HasMany(() => Actividad)
+  @HasMany(() => Actividad,{
+    onUpdate:'CASCADE',
+    onDelete:'CASCADE'
+  })
   declare actividades: Actividad[];
 
   @HasMany(() => Notificaciones)

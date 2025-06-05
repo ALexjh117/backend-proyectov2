@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { PlanificacionEvento } from "../models/PlanificacionEvento"; // Importa el modelo adecuado
 import { error } from "console";
-
+// esto esta bien , falta es traer al usuario quiem hizo esta peticion 
 export class PlanificacionEventoControllers {
 
 

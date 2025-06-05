@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SolicitudApoyo } from "../models/SolicitudApoyo";
-
+//quien hizo la peticin y el encargado con su rol
 
 export class SolicitudApoyoController{
     static getAllSolicitudApoyo = async (req: Request, res:Response) => {

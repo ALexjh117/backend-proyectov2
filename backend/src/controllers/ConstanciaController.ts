@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Constancia } from "../models/Constancia"; // Asegúrate de importar el modelo Constancia
 
 export class ConstanciaControllers {
-    // Obtener todas las constancias ordenadas por `ConstanciaFecha`
+    // Obtener todas las constancias ordenadas por `ConstanciaFecha` constancias del usuario 
     static getConstanciaAll = async (req: Request, res: Response) => {
         try {
             console.log('Desde GET /api/Constancia');

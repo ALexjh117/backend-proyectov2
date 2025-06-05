@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { RelUsuarioEvento } from "../models/RelUsuarioEvento"; 
+//relacion del usuario con el evento creado 
 export class RelUsuarioEventoControllers {
 
     static getRelUsuarioEventoAll = async (req: Request, res: Response) => {
