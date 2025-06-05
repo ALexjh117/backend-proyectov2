@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { Evento } from "../models/Evento";
-
+// quien creo el evento: un usuario , y a los eventos asistidos de ese usuario
 export class EventoControllers {
     static getEventoAll = async (req: Request, res: Response) => {
         try {

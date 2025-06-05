@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany, Default ,AllowNull} from 'sequelize-typescript';
 import { RolUsuario } from './RolUsuario';
 import { AlquilerElementos } from './AlquilerElementos';
 import { Asistencia } from './Asistencia';
@@ -12,26 +12,42 @@ export class Usuario extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
   declare IdUsuario: number;
 
-  @Column({ type: DataType.STRING(50), allowNull: false }) 
+@AllowNull(false)
+  @Column({ type: DataType.STRING(50) }) 
   declare IdentificacionUsuario: string;
 
-  @Column({ type: DataType.STRING(100), allowNull: false })
+@AllowNull(false)
+  @Column({ type: DataType.STRING(100)})
   declare Nombre: string;
 
-  @Column({ type: DataType.STRING(100), allowNull: false })
+@AllowNull(false)
+  @Column({ type: DataType.STRING(100) })
   declare Apellido: string;
 
-  @Column({ type: DataType.STRING(255), allowNull: false }) 
+@AllowNull(false)
+  @Column({ type: DataType.STRING(255)}) 
   declare Correo: string;
 
-  @Column({ type: DataType.STRING(20), allowNull: true })
+@AllowNull(false)
+  @Column({ type: DataType.STRING(20)})
   declare Telefono: string;
 
-  @Column({ type: DataType.STRING(255), allowNull: false })
+@AllowNull(false)
+  @Column({ type: DataType.STRING(255) })
   declare Contrasena: string;
 
-  @Column({ type: DataType.DATEONLY, allowNull: false })
+@AllowNull(false)
+  @Column({ type: DataType.DATEONLY })
   declare FechaRegistro: Date;
+
+  @Column({ type: DataType. STRING(6)
+})
+  declare token: string;
+
+@Default(false)
+  @Column({ type: DataType.BOOLEAN
+})
+  declare confirmed: boolean;
 
   @HasMany(() => RolUsuario)
   declare rolUsuarios: RolUsuario[];

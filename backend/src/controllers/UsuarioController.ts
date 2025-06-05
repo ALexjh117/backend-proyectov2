@@ -1,6 +1,13 @@
 import type { Request, Response } from "express";
-import { Usuario } from "../models/Usuario";
+import {  Usuario } from "../models/Usuario";
+import { hashPassword } from "../utils/auth";
+import { generateToken } from "../utils/token";
+import { AuthEmail } from "../emails/AuthEmail";
+import { where } from "sequelize";
+import { ERROR } from "sqlite3";
 
+
+//gestion de ingreso del usuario 
 export class UsuarioController {
     static getAll = async (req : Request, res : Response) => {
         try {
@@ -34,17 +41,64 @@ export class UsuarioController {
         }
     }
 
-    static crearUsuario = async (req : Request, res : Response) => {
-        try {
-            const usuario = new Usuario(req.body)
-            await usuario.save()
-            res.status(201).json("Usuario creado correctamente")
-        }
-        catch (error) {
-            res.status(500).json( {error : "Error al crear usuario."})
-        }
-    }
+   static crearUsuario = async (req: Request, res: Response) => {
+    try {
+         // Se extraen los campos necesarios del cuerpo de la solicitud
+        const {
+            IdentificacionUsuario,
+            Nombre,
+            Apellido,
+            Correo,
+            Telefono,
+            Contrasena,
+            FechaRegistro
+        } = req.body;
+      
+                   // Validación: todos los campos son obligatorios
 
+        if (
+            !IdentificacionUsuario || !Nombre || !Apellido || !Correo ||
+            !Telefono || !Contrasena || !FechaRegistro
+            
+        ) 
+        {
+            res.status(400).json({ error: "Todos los campos son obligatorios" });
+            return;
+        }
+    // Se encripta la contraseña
+        const hashedPassword = await hashPassword(Contrasena);
+           // Se genera un token de verificación aleatorio
+        const token = generateToken();
+         // Se crea el usuario en la base de datos con estado `confirmed` en falso
+        const usuario = await Usuario.create({
+            IdentificacionUsuario,
+            Nombre,
+            Apellido,
+            Correo,
+            Telefono,
+            Contrasena: hashedPassword,
+            FechaRegistro,
+            token,
+            confirmed: false, 
+        });
+                // Se envía un correo al usuario con el token de confirmación
+         await AuthEmail.sendConfirmationEmail({
+            Nombre: usuario.Nombre,
+            Correo: usuario.Correo,
+            token: usuario.token
+        });
+        console.log("Finalizo envio de correo")
+
+        res.status(201).json({
+            mensaje: "Usuario creado correctamente"
+            
+        });
+
+    } catch (error) {
+        console.error("Error en crearUsuario:", error);
+        res.status(500).json({ error: "Error al crear usuario." });
+    }
+}
     static actualizarUsuarioId = async (req: Request, res : Response) =>{
         try {
             const {id} = req.params
@@ -74,7 +128,28 @@ export class UsuarioController {
             res.json("Usuario eliminado exitosamente.")
         }
         catch (error) {
-            res.status(500).json({error : "Error al actulizar usuario."})
+            res.status(500).json({error : "Error al eliminar usuario."})
         }
     }
+
+
+
+    static confirmAccount = async (req: Request, res:Response) =>{
+        const {token} = req.body ; // Se recibe el token desde el cuerpo de la solicitud
+        const usuario =await Usuario.findOne({where:{token}}) // Busca usuario por token
+        if(!usuario){
+            const error=new Error('Token no valido')
+             res.status(401).json({error:error.message})// Token inválido
+             return;
+        }
+          // Si el token es válido, se confirma la cuenta
+        usuario.confirmed =true
+        usuario.token="";// Se elimina el token para evitar reutilización
+        await usuario.save()//guarda cambios
+        res.json("Cuenta confirmada correctamente")
+
+    }
+
 }
+
+

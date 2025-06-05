@@ -21,6 +21,7 @@ export class AsistenciaControllers {
     };
 
     // Obtener asistencia por ID
+    // toca traer la asistencia por actividad o evento del usuario 
     static getIdAsistencia = async (req: Request, res: Response) => {
         try {
             const { AsiId } = req.params;

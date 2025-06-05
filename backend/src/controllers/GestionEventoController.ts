@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { GestionEvento } from "../models/GestionEvento";
 
-
+//esto esta bien 
 export class GestionEventoController {
     static getAll = async (req : Request, res : Response) => {
         try {   

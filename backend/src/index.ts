@@ -12,7 +12,7 @@ async function startServer() {
         console.log(colors.blue.bold('Conexión exitosa a la Base de datos'));
 
         // Sincroniza la base de datos
-        await db.sync();
+   await db.sync();
         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
 
         // Busca un puerto libre automáticamente, comenzando desde el puerto 3000

@@ -10,7 +10,7 @@ export class RolusuarioController{
                     ['createdAt', 'ASC'], // Ordenar por la fecha de creación
                 ]
             })
-            res.json(rolusuario) // Responder con el resultado de las actividades
+            res.json(rolusuario) // Responder a los roles que tiene cada usuario 
         }catch(error){
             //console.error(error); 
             res.status(500).json({error: 'Hubo un error'})

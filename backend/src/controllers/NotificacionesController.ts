@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Notificaciones } from "../models/Notificaciones"
-
+// notificaciones a cada usuario , sobre , actividades , ludicas , eventos , o solicitues de apoyo
 export class NotificacionesController {
 
     static getNotificacionesAll = async (req: Request, res: Response) => {

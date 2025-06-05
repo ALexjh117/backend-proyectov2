@@ -42,11 +42,9 @@ export class ActividadControllers {
 
   static crearActividad = async (req: Request, res: Response) => {
     try {
-      const actividad = await Actividad.create(req.body);
-      res.status(201).json({
-        message: 'Actividad creada exitosamente',
-        actividad,
-      });
+      const actividad = new Actividad(req.body);
+      await actividad.save()
+      res.status(201).json({message: 'Actividad creada exitosamente',});
     } catch (error) {
       console.error('Error al crear actividad:', error);
       res.status(500).json({ error: 'hubo error' });
@@ -68,16 +66,22 @@ export class ActividadControllers {
     }
   };
   // aqui esta el metodo para  traer acitividades por evento metodo get zungas//
+  // falta traer por id de la actividad que pertenece a tal evento 
   static getActividadesPorEvento = async (req: Request, res: Response) => {
   try {
     const { IdEvento } = req.params;
-    const actividades = await Actividad.findAll({ where: { IdEvento } });
+    const actividades = await Actividad.findAll({ 
+      where: { IdEvento }
+     
+    });
     res.json(actividades);
   } catch (error) {
     console.error(error);
+    
     res.status(500).json({ error: 'Error al obtener actividades por evento' });
   }
 };
+
 
 
   static eliminarIdActividad = async (req: Request, res: Response) => {
